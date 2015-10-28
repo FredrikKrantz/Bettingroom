@@ -1,0 +1,32 @@
+﻿@model BettingRoom.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+
+<hr />
+
+<div>
+    <h3>Change your account settings</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("CHANGE YOUR PASSWORD", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>External Logins:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Manage", "ManageLogins") ]
+        </dd>
+    </dl>
+</div>

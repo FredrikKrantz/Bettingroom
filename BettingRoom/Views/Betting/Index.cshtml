@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="large-12 columns">    
+        <button class="button" onclick="getLeague(1)">NHL WESTERN</button>
+        <button class="button" onclick="getLeague(2)">NHL EASTERN</button>
+        <button class="button" onclick="getLeague(3)">SHL</button>
+        <button class="button" onclick="getLeague(4)">PREMIER LEAGUE</button>
+        <button class="button" onclick="getLeague(5)">ALLSVENSKAN</button>
+        <button class="button" onclick="getLeague(6)">SSL</button>
+</div>
+
+<div id="leagueStandingsDiv" class="large-12 columns displayGames">
+</div>
+
+<div id="gamesThatIsBettable">
+</div>
+
+<div id="finishBet" class="large-12 columns displayGames">
+</div>
+
+<div id="leaguesPlayedGamesDiv" class="large-12 columns displayGames">
+</div>
+
+<div id="nextGamesDiv" class="large-12 columns displayGames">
+</div>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/BettingScript.js"></script>
+
+
+

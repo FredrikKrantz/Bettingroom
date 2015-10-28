@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BettingRoom.Models.GameModel>
+
+<h4>
+    @Html.Label("Press on team or tie to choose")
+</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GameTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeagueName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeTeam)
+        </th>
+        <th>
+            @Html.Label(" ")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GuestTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Odds1)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.OddsX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Odds2)
+        </th> 
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeagueName)
+        </td>
+        <td>
+            @Ajax.ActionLink(@item.HomeTeam, "CreateBet", "Betting", new { id = item.Id, result = '1' }, new AjaxOptions { UpdateTargetId = "finishBet" })
+            <br />
+            @item.Odds1    
+        </td>
+        <td>        
+            @Ajax.ActionLink("TIE", "CreateBet", "Betting", new { id = item.Id, result = 'X' }, new AjaxOptions { UpdateTargetId = "finishBet" })
+            <br />
+            @item.OddsX
+        </td>
+        <td>
+            @Ajax.ActionLink(@item.GuestTeam, "CreateBet", "Betting", new { id = item.Id, result = '2' }, new AjaxOptions { UpdateTargetId = "finishBet" })
+            <br />
+            @item.Odds2
+        </td>  
+    </tr>
+}
+
+</table>
+
+

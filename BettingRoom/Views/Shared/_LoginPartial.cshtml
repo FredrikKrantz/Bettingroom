@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">               
+        <li>@Html.ActionLink("MAKE A BET", "Index", "Betting", routeValues: null, htmlAttributes: new { @class = "button" })</li>
+        <li>@Ajax.ActionLink("YOUR ACCOUNT", "Balance", "Home", null, new AjaxOptions { UpdateTargetId = "showBalance" }, new { @class = "button" })</li>      
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" class="button">LOG OFF</a></li>        
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">       
+        <li>@Html.ActionLink("REGISTER", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "button" })</li>
+        <li>@Html.ActionLink("LOG IN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "button" })</li>
+    </ul>
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/HomeScript.js"></script>

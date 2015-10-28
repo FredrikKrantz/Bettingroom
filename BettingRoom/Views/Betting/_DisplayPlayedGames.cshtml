@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BettingRoom.Models.GameModel>
+
+<h2>
+    @Html.Label("FINISHED GAMES")
+</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GameTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeTeam)
+        </th>
+        <th>
+            @Html.Label(" ")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GuestTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result1X2)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameTime)
+        </td>
+        <td>
+            @if (item.Result1X2 == "1")
+            {
+                <b>@Html.DisplayFor(modelItem => item.HomeTeam)</b>
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.HomeTeam)
+            }
+            
+        </td>
+        <td>
+            @Html.Label(" - ")
+        </td>
+        <td>
+            @if (item.Result1X2 == "2")
+            {
+                <b>@Html.DisplayFor(modelItem => item.GuestTeam)</b>                
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.GuestTeam)
+            }
+            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result1X2)
+        </td>
+    </tr>
+}
+</table>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/BettingScript.js"></script>
+
+

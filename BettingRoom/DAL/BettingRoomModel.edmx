@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BettingRoomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountBalance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AmountInEuro" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BetOneGame">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="BetAmount" Type="int" Nullable="false" />
+          <Property Name="GameId" Type="int" Nullable="false" />
+          <Property Name="1X2" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="Odds" Type="float" Nullable="false" />
+          <Property Name="WonOrLose" Type="nvarchar(max)" />
+          <Property Name="BetTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomeTeamId" Type="int" Nullable="false" />
+          <Property Name="GuestTeamId" Type="int" Nullable="false" />
+          <Property Name="Odds1" Type="float" Nullable="false" />
+          <Property Name="OddsX" Type="float" Nullable="false" />
+          <Property Name="Odds2" Type="float" Nullable="false" />
+          <Property Name="GameTime" Type="datetime" Nullable="false" />
+          <Property Name="ResultHomeTeam" Type="int" />
+          <Property Name="ResultGuestTeam" Type="int" />
+          <Property Name="Result1X2" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SportName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LeagueId" Type="int" Nullable="false" />
+          <Property Name="PointsInLeague" Type="int" Nullable="false" />
+          <Property Name="TeamOdds" Type="float" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="TransactionType" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="TransactionTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BetOneGam__GameI__2DE6D218">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="BetOneGame" Type="Self.BetOneGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BetOneGame">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BetOneGam__UserI__2CF2ADDF">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="BetOneGame" Type="Self.BetOneGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BetOneGame">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__GuestTeamI__2A164134">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="GuestTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__HomeTeamId__29221CFB">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="HomeTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Team__LeagueId__0E6E26BF">
+          <End Role="League" Type="Self.League" Multiplicity="1" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountBalance_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AccountBalance" Type="Self.AccountBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccountBalance">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_AccountBalance">
+          <End Role="AccountBalance" Type="Self.AccountBalance" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountBalance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BettingRoomModelStoreContainer">
+          <EntitySet Name="AccountBalance" EntityType="Self.AccountBalance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BetOneGame" EntityType="Self.BetOneGame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BetOneGam__GameI__2DE6D218" Association="Self.FK__BetOneGam__GameI__2DE6D218">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="BetOneGame" EntitySet="BetOneGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BetOneGam__UserI__2CF2ADDF" Association="Self.FK__BetOneGam__UserI__2CF2ADDF">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="BetOneGame" EntitySet="BetOneGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__GuestTeamI__2A164134" Association="Self.FK__Game__GuestTeamI__2A164134">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__HomeTeamId__29221CFB" Association="Self.FK__Game__HomeTeamId__29221CFB">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Team__LeagueId__0E6E26BF" Association="Self.FK__Team__LeagueId__0E6E26BF">
+            <End Role="League" EntitySet="League" />
+            <End Role="Team" EntitySet="Team" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountBalance_AspNetUsers" Association="Self.FK_AccountBalance_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AccountBalance" EntitySet="AccountBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_AccountBalance" Association="Self.FK_Transaction_AccountBalance">
+            <End Role="AccountBalance" EntitySet="AccountBalance" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BettingRoomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BettingRoomEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountBalances" EntityType="BettingRoomModel.AccountBalance" />
+          <EntitySet Name="AspNetUsers" EntityType="BettingRoomModel.AspNetUser" />
+          <EntitySet Name="BetOneGames" EntityType="BettingRoomModel.BetOneGame" />
+          <EntitySet Name="Games" EntityType="BettingRoomModel.Game" />
+          <EntitySet Name="Leagues" EntityType="BettingRoomModel.League" />
+          <EntitySet Name="Teams" EntityType="BettingRoomModel.Team" />
+          <EntitySet Name="Transactions" EntityType="BettingRoomModel.Transaction" />
+          <AssociationSet Name="FK__BetOneGam__UserI__2CF2ADDF" Association="BettingRoomModel.FK__BetOneGam__UserI__2CF2ADDF">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="BetOneGame" EntitySet="BetOneGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BetOneGam__GameI__2DE6D218" Association="BettingRoomModel.FK__BetOneGam__GameI__2DE6D218">
+            <End Role="Game" EntitySet="Games" />
+            <End Role="BetOneGame" EntitySet="BetOneGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__GuestTeamI__2A164134" Association="BettingRoomModel.FK__Game__GuestTeamI__2A164134">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__HomeTeamId__29221CFB" Association="BettingRoomModel.FK__Game__HomeTeamId__29221CFB">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Team__LeagueId__0E6E26BF" Association="BettingRoomModel.FK__Team__LeagueId__0E6E26BF">
+            <End Role="League" EntitySet="Leagues" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountBalance_AspNetUsers" Association="BettingRoomModel.FK_AccountBalance_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AccountBalance" EntitySet="AccountBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_AccountBalance" Association="BettingRoomModel.FK_Transaction_AccountBalance">
+            <End Role="AccountBalance" EntitySet="AccountBalances" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AccountBalance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AmountInEuro" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="BettingRoomModel.FK_AccountBalance_AspNetUsers" FromRole="AccountBalance" ToRole="AspNetUser" />
+          <NavigationProperty Name="Transactions" Relationship="BettingRoomModel.FK_Transaction_AccountBalance" FromRole="AccountBalance" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BetOneGames" Relationship="BettingRoomModel.FK__BetOneGam__UserI__2CF2ADDF" FromRole="AspNetUser" ToRole="BetOneGame" />
+          <NavigationProperty Name="AccountBalances" Relationship="BettingRoomModel.FK_AccountBalance_AspNetUsers" FromRole="AspNetUser" ToRole="AccountBalance" />
+        </EntityType>
+        <EntityType Name="BetOneGame">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="BetAmount" Type="Int32" Nullable="false" />
+          <Property Name="GameId" Type="Int32" Nullable="false" />
+          <Property Name="C1X2" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Odds" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="BettingRoomModel.FK__BetOneGam__UserI__2CF2ADDF" FromRole="BetOneGame" ToRole="AspNetUser" />
+          <NavigationProperty Name="Game" Relationship="BettingRoomModel.FK__BetOneGam__GameI__2DE6D218" FromRole="BetOneGame" ToRole="Game" />
+          <Property Name="WonOrLose" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BetTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomeTeamId" Type="Int32" Nullable="false" />
+          <Property Name="GuestTeamId" Type="Int32" Nullable="false" />
+          <Property Name="Odds1" Type="Double" Nullable="false" />
+          <Property Name="OddsX" Type="Double" Nullable="false" />
+          <Property Name="Odds2" Type="Double" Nullable="false" />
+          <Property Name="GameTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ResultHomeTeam" Type="Int32" />
+          <Property Name="ResultGuestTeam" Type="Int32" />
+          <Property Name="Result1X2" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BetOneGames" Relationship="BettingRoomModel.FK__BetOneGam__GameI__2DE6D218" FromRole="Game" ToRole="BetOneGame" />
+          <NavigationProperty Name="Team" Relationship="BettingRoomModel.FK__Game__GuestTeamI__2A164134" FromRole="Game" ToRole="Team" />
+          <NavigationProperty Name="Team1" Relationship="BettingRoomModel.FK__Game__HomeTeamId__29221CFB" FromRole="Game" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Teams" Relationship="BettingRoomModel.FK__Team__LeagueId__0E6E26BF" FromRole="League" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SportName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LeagueId" Type="Int32" Nullable="false" />
+          <Property Name="PointsInLeague" Type="Int32" Nullable="false" />
+          <Property Name="TeamOdds" Type="Double" />
+          <NavigationProperty Name="Games" Relationship="BettingRoomModel.FK__Game__GuestTeamI__2A164134" FromRole="Team" ToRole="Game" />
+          <NavigationProperty Name="Games1" Relationship="BettingRoomModel.FK__Game__HomeTeamId__29221CFB" FromRole="Team" ToRole="Game" />
+          <NavigationProperty Name="League" Relationship="BettingRoomModel.FK__Team__LeagueId__0E6E26BF" FromRole="Team" ToRole="League" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="TransactionType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AccountBalance" Relationship="BettingRoomModel.FK_Transaction_AccountBalance" FromRole="Transaction" ToRole="AccountBalance" />
+          <Property Name="TransactionTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK__BetOneGam__UserI__2CF2ADDF">
+          <End Type="BettingRoomModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="BettingRoomModel.BetOneGame" Role="BetOneGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BetOneGame">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BetOneGam__GameI__2DE6D218">
+          <End Type="BettingRoomModel.Game" Role="Game" Multiplicity="1" />
+          <End Type="BettingRoomModel.BetOneGame" Role="BetOneGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BetOneGame">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__GuestTeamI__2A164134">
+          <End Type="BettingRoomModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="BettingRoomModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="GuestTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__HomeTeamId__29221CFB">
+          <End Type="BettingRoomModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="BettingRoomModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="HomeTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Team__LeagueId__0E6E26BF">
+          <End Type="BettingRoomModel.League" Role="League" Multiplicity="1" />
+          <End Type="BettingRoomModel.Team" Role="Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountBalance_AspNetUsers">
+          <End Type="BettingRoomModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="BettingRoomModel.AccountBalance" Role="AccountBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccountBalance">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_AccountBalance">
+          <End Type="BettingRoomModel.AccountBalance" Role="AccountBalance" Multiplicity="1" />
+          <End Type="BettingRoomModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountBalance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BettingRoomModelStoreContainer" CdmEntityContainer="BettingRoomEntities">
+          <EntitySetMapping Name="AccountBalances">
+            <EntityTypeMapping TypeName="BettingRoomModel.AccountBalance">
+              <MappingFragment StoreEntitySet="AccountBalance">
+                <ScalarProperty Name="AmountInEuro" ColumnName="AmountInEuro" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="BettingRoomModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BetOneGames">
+            <EntityTypeMapping TypeName="BettingRoomModel.BetOneGame">
+              <MappingFragment StoreEntitySet="BetOneGame">
+                <ScalarProperty Name="BetTime" ColumnName="BetTime" />
+                <ScalarProperty Name="WonOrLose" ColumnName="WonOrLose" />
+                <ScalarProperty Name="Odds" ColumnName="Odds" />
+                <ScalarProperty Name="C1X2" ColumnName="1X2" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="BetAmount" ColumnName="BetAmount" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="BettingRoomModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="Result1X2" ColumnName="Result1X2" />
+                <ScalarProperty Name="ResultGuestTeam" ColumnName="ResultGuestTeam" />
+                <ScalarProperty Name="ResultHomeTeam" ColumnName="ResultHomeTeam" />
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
+                <ScalarProperty Name="Odds2" ColumnName="Odds2" />
+                <ScalarProperty Name="OddsX" ColumnName="OddsX" />
+                <ScalarProperty Name="Odds1" ColumnName="Odds1" />
+                <ScalarProperty Name="GuestTeamId" ColumnName="GuestTeamId" />
+                <ScalarProperty Name="HomeTeamId" ColumnName="HomeTeamId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leagues">
+            <EntityTypeMapping TypeName="BettingRoomModel.League">
+              <MappingFragment StoreEntitySet="League">
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="BettingRoomModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="TeamOdds" ColumnName="TeamOdds" />
+                <ScalarProperty Name="PointsInLeague" ColumnName="PointsInLeague" />
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+                <ScalarProperty Name="SportName" ColumnName="SportName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="BettingRoomModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

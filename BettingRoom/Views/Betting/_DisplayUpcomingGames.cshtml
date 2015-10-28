@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BettingRoom.Models.GameModel>
+
+<h2>
+    @Html.Label("UPCOMING GAMES")
+</h2>
+<p>
+    @Html.Label("YOU CANT BET ON GAMES LATER THEN THE NEXT COMING ROUND")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GameTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeTeam)
+        </th>
+        <th>
+            @Html.Label(" ")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GuestTeam)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeam)
+        </td>
+        <td>
+            @Html.Label(" - ")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GuestTeam)
+        </td>
+    </tr>
+}
+</table>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/BettingScript.js"></script>

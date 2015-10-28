@@ -1,0 +1,178 @@
+﻿@model IEnumerable<BettingRoom.Models.GameModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (!User.Identity.IsAuthenticated)
+{
+    //Carousel when user not signed in
+    <div class="large-12 columns container ">
+        <div id="mainCarousel" class="carousel slide" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+                <li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#mainCarousel" data-slide-to="1"></li>
+                <li data-target="#mainCarousel" data-slide-to="2"></li>
+                <li data-target="#mainCarousel" data-slide-to="3"></li>
+                <li data-target="#mainCarousel" data-slide-to="4"></li>
+                <li data-target="#mainCarousel" data-slide-to="5"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href="../Account/Register/registerLink">
+                        <img class="imgCentered" src="~/Pictures/banner_feature-casino-generic-loggedout.jpg" alt="..." />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="divCarousel">
+                        <a href="../Account/Register/registerLink">
+                            <img class="imgCentered" src="~/Pictures/output_oBfibL.gif" alt="..." />
+                        </a>
+                    </div>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="../Account/Register/registerLink">
+                        <img class="imgCentered" src="~/Pictures/CasinoRoom.png" alt="..." />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="../Account/Register/registerLink">
+                        <img class="imgCentered" src="~/Pictures/best_odds_guaranteed-300x207.jpg" alt="..." />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="../Account/Register/registerLink">
+                        <img class="imgCentered" src="~/Pictures/output_ttvsSJ.gif" alt="..." />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="../Account/Register/registerLink">
+                        <img class="imgCentered" src="~/Pictures/images.jpg" alt="..." />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#mainCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#mainCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    //Carousel when user is signed in
+    <div class="large-12 columns container ">
+        <div id="mainCarousel" class="carousel slide" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+                <li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#mainCarousel" data-slide-to="1"></li>
+                <li data-target="#mainCarousel" data-slide-to="2"></li>
+                <li data-target="#mainCarousel" data-slide-to="3"></li>
+                <li data-target="#mainCarousel" data-slide-to="4"></li>
+                <li data-target="#mainCarousel" data-slide-to="5"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href="#" onclick="getLeague(1)">
+                        <img src="~/Pictures/NHL_Western_Conference.svg.png" alt="..." class="imgCentered" />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="divCarousel">
+                        <a href="#" onclick="getLeague(2)">
+                            <img src="~/Pictures/NHL_Eastern_Conference.svg.png" alt="..." class="imgCentered" />
+                        </a>
+                    </div>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="#" onclick="getLeague(3)">
+                        <img src="~/Pictures/W_GZuvWqBA0.jpg" alt="..." class="imgCentered" />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="#" onclick="getLeague(4)">
+                        <img src="~/Pictures/Barclays-Premier-League-Logo-Wallpaper.jpg" alt="..." class="imgCentered" />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="#" onclick="getLeague(5)">
+                        <img src="~/Pictures/Allsvenskan_Logo.png" alt="..." class="imgCentered" />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="#" onclick="getLeague(6)">
+                        <img src="~/Pictures/SSL2.png" alt="..." class="imgCentered" />
+                    </a>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#mainCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#mainCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+}
+
+<div class="large-12 columns container">
+    <div id="showBalance" class="large-12 columns container">
+
+    </div>
+    <div id="displayTransactionsBet" class="large-12 columns displayGames">
+
+    </div>
+</div>
+
+<div class="large-12 columns container" onclick="goToBettingSite()">
+    <h2 class="textInDiv">UPCOMING GAMES</h2>
+    <div id="showOnHomeIndex" class="large-12 columns displayGames">
+
+    </div>
+
+</div>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/HomeScript.js"></script>
+<script src="~/Scripts/BettingScript.js"></script>
+
+<script>
+    $('.carousel').carousel({
+        interval: 2000
+    })
+</script>

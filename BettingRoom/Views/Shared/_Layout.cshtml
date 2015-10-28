@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/foundation.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+    <link href="~/Content/BettingRoomStyles.css" rel="stylesheet" />
+
+</head>
+<body>   
+    <div class="row">
+        <div class="large-3 columns">            
+            <ul class="nav navbar-nav">
+                <li><a href="/Home/Index" title="Main"><h1>BettingRoom.com</h1></a></li>
+            </ul>
+        </div>
+           @Html.Partial("_LoginPartial")       
+     </div>
+
+
+
+
+    <div class="container body-content" style="clear:left;">
+        @RenderBody()
+
+        <footer>
+            <h5>&copy; @DateTime.Now.Year - BETTINGROOM.COM</h5>
+        </footer>
+    </div>
+
+   
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/foundation.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+    </script>
+</body>
+</html>

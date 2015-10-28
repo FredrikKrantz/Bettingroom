@@ -1,0 +1,81 @@
+﻿#footerH6{    
+    color: darkred;
+    vertical-align: central;
+}
+
+#rowFooter{
+    background-color: darkgray;
+    height: 20%;
+}
+
+.imgCentered{    
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+    height: 250px !important;
+    }
+
+.editor-multiline-field textarea {
+    width: 280px;
+    height: 400px;
+}
+
+.large-12 .columns .container{
+    clear:both !important;
+    text-align: center !important;
+}
+
+.large-4 .columns .displayGames{
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.large-4 {
+    display: block;
+}
+
+button, .button {
+    background-color: black;
+    font-weight: bolder;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+button:hover, button:focus, .button:hover, .button:focus {
+        background-color: white; 
+}
+
+button:hover, button:focus, .button:hover, .button:focus {
+    color: black;
+}
+
+hr {
+    border: solid darkblue; 
+}
+
+.displayGames{
+    margin: 0 auto;
+    text-align: center;
+    border: 2px solid;
+    border-color: black;
+    position:center !important;   
+}
+
+#mainCarousel{
+    height: 250px !important;
+}
+
+.divCarousel{
+  margin-bottom: auto;
+  margin-bottom: auto;
+}
+
+.textInDiv{
+    display: inline-block;
+    text-align: center;
+}
+
+.btnCentered{
+    margin: 0 auto;
+}
+
+

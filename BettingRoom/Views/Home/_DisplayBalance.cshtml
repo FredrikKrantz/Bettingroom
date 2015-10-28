@@ -1,0 +1,29 @@
+﻿@model BettingRoom.Models.AccountModel
+
+<div>
+    <h1>YOUR ACCOUNT</h1>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmountInEuro)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AmountInEuro)
+        </dd>
+    </dl>
+</div>
+
+<div class="large-12 columns">
+    @Ajax.ActionLink("VIEW ALL TRANSACTIONS", "ViewTransactions", "Home", new { searchQuery = "Transaction" }, new AjaxOptions { UpdateTargetId = "displayTransactionsBet" }, new { @class = "button" })
+    @Ajax.ActionLink("VIEW YOUR WITHDRAWS", "ViewTransactions", "Home", new { searchQuery = "Withdraw" }, new AjaxOptions { UpdateTargetId = "displayTransactionsBet" }, new { @class = "button" })
+    @Ajax.ActionLink("VIEW YOUR DEPOSITS", "ViewTransactions", "Home", new { searchQuery = "Deposit" }, new AjaxOptions { UpdateTargetId = "displayTransactionsBet" }, new { @class = "button" })
+</div>
+<div class="large-12 columns" style="clear: left;">
+    @Ajax.ActionLink("VIEW YOUR BETS", "ViewBets", "Home", new { searchQuery = "Bet" }, new AjaxOptions { UpdateTargetId = "displayTransactionsBet" }, new { @class = "button" })
+    @Ajax.ActionLink("VIEW YOUR WINNING BETS", "ViewBets", "Home", new { searchQuery = "WON" }, new AjaxOptions { UpdateTargetId = "displayTransactionsBet" }, new { @class = "button" })
+    @Ajax.ActionLink("VIEW YOUR LOST BETS", "ViewBets", "Home", new { searchQuery = "LOST" }, new AjaxOptions { UpdateTargetId = "displayTransactionsBet" }, new { @class = "button" })
+</div>
+
+
+

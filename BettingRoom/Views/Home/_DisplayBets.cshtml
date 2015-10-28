@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BettingRoom.Models.BetOneModel>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BetTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GuestTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BetAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model._1X2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Odds)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WonOrLost)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BetTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GuestTeam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BetAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._1X2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Odds)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WonOrLost)
+        </td>
+    </tr>
+}
+
+</table>
